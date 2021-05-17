@@ -1,14 +1,9 @@
 FROM ubuntu:20.04
 
-WORKDIR /server
+RUN apt update \
+	&& apt upgrade -y \
+	&& apt install -y libstdc++6 lib32stdc++6 libreadline5 libncursesw5 tar curl iproute2 openssl wget unzip libmysqlclient-dev \
+	&& cd /usr/lib \
+	&& wget https://nightly.mtasa.com/files/modules/64/libmysqlclient.so.16
 
-RUN apt install wget tar
-RUN wget http://nightly.mtasa.com/files/modules/64/libmysqlclient.so.16 -P ./usr/lib \
-    && mkdir lib && cp ./usr/lib/libmysqlclient.so.16 ./lib \
-    && mv multitheftauto_linux_x64* mtasa \
-    && mkdir mtasa/.default \
-    && mkdir mtasa/x64/modules \
-    && wget https://nightly.mtasa.com/files/modules/64/mta_mysql.so -P mtasa/x64/modules \
-    && wget https://nightly.mtasa.com/files/modules/64/ml_sockets.so -P mtasa/x64/modules \
-    && chmod go+rw mtasa -R \
-    && chmod +x usr/lib/libmysqlclient.so.16 lib/libmysqlclient.so.16
+WORKDIR /server

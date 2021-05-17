@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 WORKDIR /server
 
-RUN apk add --no-cache --update wget tar
+RUN apt install wget tar
 RUN wget http://nightly.mtasa.com/files/modules/64/libmysqlclient.so.16 -P ./usr/lib \
     && mkdir lib && cp ./usr/lib/libmysqlclient.so.16 ./lib \
     && mv multitheftauto_linux_x64* mtasa \
